@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antra Assignment</title>
+</head>
+
+<body>
+    <button class="continue">Continue</button>
+    <button class="continue">Continue</button>
+
+    <span id="banner-message">HiddenBox</span>
+    <div id="button-container">
+        <button>Show</button>
+    </div>
+    <script>
+        function $$(selector) {
+            const elements = document.querySelectorAll(selector);
+            return { elements };
+        }
+
+        $$().__proto__.html = function (innerHTML) {
+            this.elements.forEach(element => {
+                element.innerHTML = innerHTML;
+            })
+        }
+        $$().__proto__.hide = function () {
+            this.elements.forEach(element => {
+                element.style.display = "none";
+            })
+        }
+        $$().__proto__.on = function (event, callback) {
+            this.elements.forEach(element => {
+                element.addEventListener(event, callback)
+            })
+        }
+        $$().__proto__.show = function () {
+            this.elements.forEach(element => {
+                element.style.display = "";
+            })
+        }
+
+        $$().__proto__.ajax = async function (item) {
+            try {
+                let results = await fetch(item.url)
+                item.success(results)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+        $$('button.continue').html('Next Step!');
+
+        var hiddenBox = $$('#banner-message');
+        hiddenBox.hide();
+        
+        $$("#button-container button").on("click", function (event) {
+            hiddenBox.show();
+        })
+
+        $$.ajax({
+            url: "https://jsonplaceholder.typicode.com/posts/1",
+            success: function (result) {
+                console.log("$.ajax", result);
+            }
+        })
+    </script>
+</body>
+
+</html>
