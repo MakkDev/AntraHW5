@@ -54,17 +54,11 @@
 
         //Part 2 JQuery Assignment
 
-        //scrollTop
+        //.scrollTop()
         $$().__proto__.scrollTop = function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
-        //onClick
-        $$().__proto__.onClick = function (callback) {
-            this.elements.forEach(element => {
-                element.addEventListener("click", callback);
-            })
-        }
-        //height
+        //.height()
         $$.__proto__.height = function () {
             let height = 0
             this.elements.forEach(element => {
@@ -72,13 +66,19 @@
             })
             return height
         }
-        //width
+        //.width()
         $$.__proto__.width = function () {
             let width = 0
             this.elements.forEach(element => {
                 width = element.offsetWidth
             })
             return width
+        }
+        //.onClick(cb)
+        $$().__proto__.onClick = function (callback) {
+            this.elements.forEach(element => {
+                element.addEventListener("click", callback);
+            })
         }
 
 
