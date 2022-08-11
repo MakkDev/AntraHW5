@@ -21,7 +21,7 @@
             const elements = document.querySelectorAll(selector);
             return { elements };
         }
-
+        //Part 1 Assignment
         $$().__proto__.html = function (innerHTML) {
             this.elements.forEach(element => {
                 element.innerHTML = innerHTML;
@@ -52,11 +52,41 @@
             }
         }
 
+        //Part 2 JQuery Assignment
+
+        //scrollTop
+        $$().__proto__.scrollTop = function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        //onClick
+        $$().__proto__.onClick = function (callback) {
+            this.elements.forEach(element => {
+                element.addEventListener("click", callback);
+            })
+        }
+        //height
+        $$.__proto__.height = function () {
+            let height = 0
+            this.elements.forEach(element => {
+                height = element.offsetHeight
+            })
+            return height
+        }
+        //width
+        $$.__proto__.width = function () {
+            let width = 0
+            this.elements.forEach(element => {
+                width = element.offsetWidth
+            })
+            return width
+        }
+
+
         $$('button.continue').html('Next Step!');
 
         var hiddenBox = $$('#banner-message');
         hiddenBox.hide();
-        
+
         $$("#button-container button").on("click", function (event) {
             hiddenBox.show();
         })
